@@ -89,7 +89,8 @@ class MainFragment : Fragment(), BluetoothController.Listener {
         super.onViewCreated(view, savedInstanceState)
         initBtAdapter()
         val pref = activity?.getSharedPreferences(
-            BluetoothConstans.PREFERENCES, Context.MODE_PRIVATE)
+            BluetoothConstans.PREFERENCES, Context.MODE_PRIVATE
+        )
         val mac = pref?.getString(BluetoothConstans.MAC, "")
         bluetoothController = BluetoothController(btAdapter)
 
@@ -99,29 +100,31 @@ class MainFragment : Fragment(), BluetoothController.Listener {
         binding.connectButton.setOnClickListener {
             bluetoothController.connect(mac ?: "", this)
         }
-        binding.Sender.setOnClickListener{
-            bluetoothController.SendMessage("A")
+        binding.Sender.setOnClickListener {
+            bluetoothController.sendMessage("A")
         }
     }
 
-    private fun initBtAdapter(){
+    private fun initBtAdapter() {
         val bManager = activity?.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         btAdapter = bManager.adapter
     }
 
     override fun onReceive(message: String) {
-        activity?.runOnUiThread {
-            when(message){
+        requireActivity().runOnUiThread {
+            when (message) {
                 BluetoothController.BLUETOOTH_CONNECTED -> {
                     binding.connectButton.backgroundTintList = AppCompatResources
                         .getColorStateList(requireContext(), R.color.red)
-                    binding.connectButton.text = "Disconnect"
+                    binding.connectButton.text = getString(R.string.disconnect)
                 }
+
                 BluetoothController.BLUETOOTH_NO_CONNECTED -> {
                     binding.connectButton.backgroundTintList = AppCompatResources
                         .getColorStateList(requireContext(), R.color.green)
-                    binding.connectButton.text = "Connect"
+                    binding.connectButton.text = getString(R.string.connect)
                 }
+
                 else -> {
                     binding.tvStatus.text = message
                 }
