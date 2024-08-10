@@ -17,19 +17,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bList"
+        app:layout_constraintEnd_toEndOf="@+id/bList"
+        app:layout_constraintStart_toStartOf="@+id/bList" />
+
     <Button
-        android:id="@+id/bList"
+        android:id="@+id/Sender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="4dp"
-        android:backgroundTint="@color/design_default_color_primary_variant"
-        android:text="Bluetooth List"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="Send Message"
+        android:layout_marginBottom="48dp"
+        app:layout_constraintBottom_toTopOf="@id/bList"
+        app:layout_constraintEnd_toEndOf="@id/connect_button"
+        app:layout_constraintStart_toStartOf="@id/connect_button" />
 
     <Button
         android:id="@+id/connect_button"
@@ -53,12 +59,17 @@
         app:layout_constraintStart_toStartOf="@+id/bList" />
 
     <Button
-        android:id="@+id/Sender"
+        android:id="@+id/bList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Send Message"
-        app:layout_constraintBottom_toTopOf="@+id/connect_button"
-        app:layout_constraintEnd_toEndOf="@+id/connect_button"
-        app:layout_constraintStart_toStartOf="@+id/connect_button" />
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="4dp"
+        android:backgroundTint="@color/design_default_color_primary_variant"
+        android:text="Bluetooth List"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
