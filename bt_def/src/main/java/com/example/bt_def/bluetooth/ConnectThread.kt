@@ -5,11 +5,8 @@ import android.bluetooth.BluetoothSocket
 import java.io.IOException
 import java.util.UUID
 
-class ConnectThread(
-    private val device: BluetoothDevice,
-    private val listener: BluetoothController.Listener,
-    private val close: () -> Unit
-) : Thread() {
+class ConnectThread(device: BluetoothDevice, val listener: BluetoothController.Listener) :
+    Thread() {
     private val uuid = "00001101-0000-1000-8000-00805F9B34FB"
     private var mSocket: BluetoothSocket? = null
 
@@ -30,21 +27,17 @@ class ConnectThread(
             readMassage()
         } catch (e: IOException) {
             listener.onReceive(BluetoothController.BLUETOOTH_NO_CONNECTED)
-            mSocket?.close()
-            close()
         } catch (se: SecurityException) {
 
         }
     }
-
-    fun SendMessage(message: String) {
-        try {
+    fun SendMessage(message: String){
+        try{
             mSocket?.outputStream?.write(message.toByteArray())
-        } catch (e: IOException) {
+        }catch(e: IOException){
 
         }
     }
-
     private fun readMassage() {
         val buffer = ByteArray(256)
         while (true) {
