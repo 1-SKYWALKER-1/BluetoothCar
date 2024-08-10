@@ -24,23 +24,27 @@ class ConnectThread(device: BluetoothDevice, val listener: BluetoothController.L
         try {
             mSocket?.connect()
             listener.onReceive(BluetoothController.BLUETOOTH_CONNECTED)
-            readMassage()
+            readMessage()
         } catch (e: IOException) {
             listener.onReceive(BluetoothController.BLUETOOTH_NO_CONNECTED)
+            closeConnection()
         } catch (se: SecurityException) {
 
         }
     }
-    fun SendMessage(message: String){
-        try{
-            mSocket?.outputStream?.write(message.toByteArray())
-        }catch(e: IOException){
 
+    fun sendMessage(message: String) {
+        try {
+            mSocket?.outputStream?.write(message.toByteArray())
+        } catch (e: IOException) {
+            closeConnection()
         }
     }
-    private fun readMassage() {
+
+    private fun readMessage() {
         val buffer = ByteArray(256)
         while (true) {
+            if (isInterrupted) return
             try {
                 val length_buffer = mSocket?.inputStream?.read(buffer)
                 val message = String(buffer, 0, length_buffer ?: 0)
