@@ -103,6 +103,7 @@ class MainFragment : Fragment(), BluetoothController.Listener {
         }
         binding.disconnectButton.setOnClickListener {
             bluetoothController?.interrupt()
+            bluetoothController?.closeConnection()
             bluetoothController = null
         }
         binding.Sender.setOnClickListener {
