@@ -44,6 +44,7 @@ class ConnectThread(device: BluetoothDevice, val listener: BluetoothController.L
     private fun readMessage() {
         val buffer = ByteArray(256)
         while (true) {
+            if (isInterrupted) return
             try {
                 val length_buffer = mSocket?.inputStream?.read(buffer)
                 val message = String(buffer, 0, length_buffer ?: 0)

@@ -102,6 +102,7 @@ class MainFragment : Fragment(), BluetoothController.Listener {
             bluetoothController?.connect(mac ?: "", this)
         }
         binding.disconnectButton.setOnClickListener {
+            bluetoothController?.interrupt()
             bluetoothController = null
         }
         binding.Sender.setOnClickListener {
