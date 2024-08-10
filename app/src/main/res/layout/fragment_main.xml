@@ -36,7 +36,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/green"
-        android:text="Connect"
+        android:text="@string/connect"
+        app:layout_constraintBottom_toTopOf="@+id/bList"
+        app:layout_constraintEnd_toEndOf="@+id/bList"
+        app:layout_constraintStart_toStartOf="@+id/bList" />
+
+    <Button
+        android:id="@+id/disconnect_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        android:visibility="gone"
+        android:text="@string/disconnect"
         app:layout_constraintBottom_toTopOf="@+id/bList"
         app:layout_constraintEnd_toEndOf="@+id/bList"
         app:layout_constraintStart_toStartOf="@+id/bList" />
