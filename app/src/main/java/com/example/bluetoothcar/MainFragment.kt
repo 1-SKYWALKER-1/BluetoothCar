@@ -75,7 +75,7 @@ import com.example.bt_def.bluetooth.BluetoothController
 
 class MainFragment : Fragment(), BluetoothController.Listener {
     private lateinit var binding: FragmentMainBinding
-    private lateinit var bluetoothController: BluetoothController
+    private var bluetoothController: BluetoothController? = null
     private lateinit var btAdapter: BluetoothAdapter
 
     override fun onCreateView(
@@ -93,19 +93,19 @@ class MainFragment : Fragment(), BluetoothController.Listener {
             BluetoothConstans.PREFERENCES, Context.MODE_PRIVATE
         )
         val mac = pref?.getString(BluetoothConstans.MAC, "")
-        bluetoothController = BluetoothController(btAdapter)
 
         binding.bList.setOnClickListener {
             findNavController().navigate(R.id.action_MainFragment_to_deviceListFragment)
         }
         binding.connectButton.setOnClickListener {
-            bluetoothController.connect(mac ?: "", this)
+            bluetoothController = BluetoothController(btAdapter)
+            bluetoothController?.connect(mac ?: "", this)
         }
         binding.disconnectButton.setOnClickListener {
-            bluetoothController.closeConnection()
+            bluetoothController = null
         }
         binding.Sender.setOnClickListener {
-            bluetoothController.sendMessage("A")
+            bluetoothController?.sendMessage("A")
         }
     }
 
