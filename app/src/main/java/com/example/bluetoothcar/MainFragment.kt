@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.bluetoothcar.databinding.FragmentMainBinding
@@ -100,6 +101,9 @@ class MainFragment : Fragment(), BluetoothController.Listener {
         binding.connectButton.setOnClickListener {
             bluetoothController.connect(mac ?: "", this)
         }
+        binding.disconnectButton.setOnClickListener {
+            bluetoothController.closeConnection()
+        }
         binding.Sender.setOnClickListener {
             bluetoothController.sendMessage("A")
         }
@@ -114,15 +118,13 @@ class MainFragment : Fragment(), BluetoothController.Listener {
         requireActivity().runOnUiThread {
             when (message) {
                 BluetoothController.BLUETOOTH_CONNECTED -> {
-                    binding.connectButton.backgroundTintList = AppCompatResources
-                        .getColorStateList(requireContext(), R.color.red)
-                    binding.connectButton.text = getString(R.string.disconnect)
+                    binding.disconnectButton.isVisible = true
+                    binding.connectButton.isVisible = false
                 }
 
                 BluetoothController.BLUETOOTH_NO_CONNECTED -> {
-                    binding.connectButton.backgroundTintList = AppCompatResources
-                        .getColorStateList(requireContext(), R.color.green)
-                    binding.connectButton.text = getString(R.string.connect)
+                    binding.disconnectButton.isVisible = false
+                    binding.connectButton.isVisible = true
                 }
 
                 else -> {
