@@ -87,7 +87,7 @@ class MainFragment : Fragment(), BluetoothController.Listener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showConnectButton = savedInstanceState?.getBoolean("buttonState") ?: true
+//        showConnectButton = savedInstanceState?.getBoolean("buttonState") ?: true
         binding.disconnectButton.isVisible = !showConnectButton
         binding.connectButton.isVisible = showConnectButton
         val bluetoothController = (requireActivity().application as App).bluetoothController
