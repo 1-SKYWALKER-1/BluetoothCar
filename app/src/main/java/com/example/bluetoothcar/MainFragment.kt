@@ -86,6 +86,8 @@ class MainFragment : Fragment(), BluetoothController.Listener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.disconnectButton.isVisible = savedInstanceState?.getBoolean("disconnectButton") ?: false
+        binding.connectButton.isVisible = savedInstanceState?.getBoolean("connectButton") ?: true
         val bluetoothController = (requireActivity().application as App).bluetoothController
         val pref = activity?.getSharedPreferences(
             BluetoothConstans.PREFERENCES, Context.MODE_PRIVATE
@@ -125,5 +127,11 @@ class MainFragment : Fragment(), BluetoothController.Listener {
                 }
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("disconnectButton", binding.disconnectButton.isVisible)
+        outState.putBoolean("connectButton", binding.connectButton.isVisible)
     }
 }
