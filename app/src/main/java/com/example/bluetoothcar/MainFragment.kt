@@ -75,8 +75,6 @@ import com.example.bt_def.bluetooth.BluetoothController
 
 class MainFragment : Fragment(), BluetoothController.Listener {
     private lateinit var binding: FragmentMainBinding
-    private var bluetoothController: BluetoothController? = null
-    private lateinit var btAdapter: BluetoothAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,7 +86,7 @@ class MainFragment : Fragment(), BluetoothController.Listener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initBtAdapter()
+        val bluetoothController = (requireActivity().application as App).bluetoothController
         val pref = activity?.getSharedPreferences(
             BluetoothConstans.PREFERENCES, Context.MODE_PRIVATE
         )
@@ -98,22 +96,15 @@ class MainFragment : Fragment(), BluetoothController.Listener {
             findNavController().navigate(R.id.action_MainFragment_to_deviceListFragment)
         }
         binding.connectButton.setOnClickListener {
-            bluetoothController = BluetoothController(btAdapter)
-            bluetoothController?.connect(mac ?: "", this)
+            bluetoothController.connect(mac ?: "", this)
         }
         binding.disconnectButton.setOnClickListener {
-            bluetoothController?.interrupt()
-            bluetoothController?.closeConnection()
-            bluetoothController = null
+            bluetoothController.interrupt()
+            bluetoothController.closeConnection()
         }
         binding.Sender.setOnClickListener {
-            bluetoothController?.sendMessage("A")
+            bluetoothController.sendMessage("A")
         }
-    }
-
-    private fun initBtAdapter() {
-        val bManager = activity?.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
-        btAdapter = bManager.adapter
     }
 
     override fun onReceive(message: String) {
