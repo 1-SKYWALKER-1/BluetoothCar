@@ -110,23 +110,21 @@ class MainFragment : Fragment(), BluetoothController.Listener {
 
     override fun onReceive(message: String) {
         binding.root.post {
-            activity?.runOnUiThread {
-                when (message) {
-                    BluetoothController.BLUETOOTH_CONNECTED -> {
-                        showConnectButton = false
-                        binding.disconnectButton.isVisible = !showConnectButton
-                        binding.connectButton.isVisible = showConnectButton
-                    }
+            when (message) {
+                BluetoothController.BLUETOOTH_CONNECTED -> {
+                    showConnectButton = false
+                    binding.disconnectButton.isVisible = !showConnectButton
+                    binding.connectButton.isVisible = showConnectButton
+                }
 
-                    BluetoothController.BLUETOOTH_NO_CONNECTED -> {
-                        showConnectButton = true
-                        binding.disconnectButton.isVisible = !showConnectButton
-                        binding.connectButton.isVisible = showConnectButton
-                    }
+                BluetoothController.BLUETOOTH_NO_CONNECTED -> {
+                    showConnectButton = true
+                    binding.disconnectButton.isVisible = !showConnectButton
+                    binding.connectButton.isVisible = showConnectButton
+                }
 
-                    else -> {
-                        binding.tvStatus.text = message
-                    }
+                else -> {
+                    binding.tvStatus.text = message
                 }
             }
         }
