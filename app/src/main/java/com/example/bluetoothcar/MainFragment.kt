@@ -2,7 +2,6 @@ package com.example.bluetoothcar
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -111,21 +110,23 @@ class MainFragment : Fragment(), BluetoothController.Listener {
 
     override fun onReceive(message: String) {
         binding.root.post {
-            when (message) {
-                BluetoothController.BLUETOOTH_CONNECTED -> {
-                    showConnectButton = false
-                    binding.disconnectButton.isVisible = !showConnectButton
-                    binding.connectButton.isVisible = showConnectButton
-                }
+            activity?.runOnUiThread {
+                when (message) {
+                    BluetoothController.BLUETOOTH_CONNECTED -> {
+                        showConnectButton = false
+                        binding.disconnectButton.isVisible = !showConnectButton
+                        binding.connectButton.isVisible = showConnectButton
+                    }
 
-                BluetoothController.BLUETOOTH_NO_CONNECTED -> {
-                    showConnectButton = true
-                    binding.disconnectButton.isVisible = !showConnectButton
-                    binding.connectButton.isVisible = showConnectButton
-                }
+                    BluetoothController.BLUETOOTH_NO_CONNECTED -> {
+                        showConnectButton = true
+                        binding.disconnectButton.isVisible = !showConnectButton
+                        binding.connectButton.isVisible = showConnectButton
+                    }
 
-                else -> {
-                    binding.tvStatus.text = message
+                    else -> {
+                        binding.tvStatus.text = message
+                    }
                 }
             }
         }
