@@ -6,7 +6,7 @@ import android.content.Context
 import com.example.bt_def.bluetooth.BluetoothController
 
 class App : Application() {
-    private val bluetoothManager by lazy {
+    val bluetoothManager by lazy {
         getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
     }
 

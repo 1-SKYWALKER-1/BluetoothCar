@@ -10,7 +10,7 @@
 
     <application>
         <activity
-            android:name=".BaseActivity"
+            android:name="com.example.bluetoothcar.BaseActivity"
             android:exported="false" />
     </application>
 

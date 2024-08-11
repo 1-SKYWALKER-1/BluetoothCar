@@ -15,6 +15,6 @@
     </fragment>
     <fragment
         android:id="@+id/deviceListFragment"
-        android:name="com.example.bt_def.DeviceListFragment"
+        android:name="com.example.bluetoothcar.DeviceListFragment"
         android:label="DeviceListFragment" />
 </navigation>
