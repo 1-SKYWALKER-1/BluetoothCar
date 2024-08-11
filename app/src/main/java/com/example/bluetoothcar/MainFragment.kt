@@ -115,13 +115,15 @@ class MainFragment : Fragment(), BluetoothController.Listener {
         requireActivity().runOnUiThread {
             when (message) {
                 BluetoothController.BLUETOOTH_CONNECTED -> {
-                    binding.disconnectButton.isVisible = true
-                    binding.connectButton.isVisible = false
+                    showConnectButton = false
+                    binding.disconnectButton.isVisible = !showConnectButton
+                    binding.connectButton.isVisible = showConnectButton
                 }
 
                 BluetoothController.BLUETOOTH_NO_CONNECTED -> {
-                    binding.disconnectButton.isVisible = false
-                    binding.connectButton.isVisible = true
+                    showConnectButton = true
+                    binding.disconnectButton.isVisible = !showConnectButton
+                    binding.connectButton.isVisible = showConnectButton
                 }
 
                 else -> {
