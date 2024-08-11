@@ -2,7 +2,6 @@ package com.example.bluetoothcar
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -111,6 +110,7 @@ class MainFragment : Fragment(), BluetoothController.Listener {
 
     override fun onReceive(message: String) {
         binding.root.post {
+        activity?.runOnUiThread {
             when (message) {
                 BluetoothController.BLUETOOTH_CONNECTED -> {
                     showConnectButton = false
